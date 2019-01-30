@@ -1,0 +1,13 @@
+[
+    {   "id":1,
+        "punchline":"the punchline 1"
+    },
+    {   "id":2,
+        "setup":"the setup 2",
+        "punchline":"the punchline 2"
+    },
+    {   "id":3,
+        "setup":"the setup 3",
+        "punchline":"the punchline 3"
+    }      
+]

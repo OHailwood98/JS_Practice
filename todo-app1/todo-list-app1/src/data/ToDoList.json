@@ -1,0 +1,22 @@
+[
+    {
+        "id":1,
+        "text":"Walk the Dog",
+        "completed":false
+    },
+    {
+        "id":2,
+        "text":"Wash the pots",
+        "completed":true
+    },
+    {
+        "id":3,
+        "text":"Finish book",
+        "completed":false
+    },
+    {
+        "id":4,
+        "text":"Hang up washing",
+        "completed":false
+    }
+]

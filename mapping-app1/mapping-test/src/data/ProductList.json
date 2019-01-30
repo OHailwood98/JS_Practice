@@ -1,0 +1,23 @@
+[
+    {
+        "id":1,
+        "name":"Sledge Hammer",
+        "description":"15 lbs sledge hammer with 32\" american hickory handle" ,
+        "price":"25.00",
+        "stars":5
+    },
+    {
+        "id":2,
+        "name":"Pickaxe",
+        "description":"A pickaxe",
+        "price":"20.00",
+        "stars":4
+    },
+    {
+        "id":3,
+        "name":"Pins x250",
+        "description":"25x2mm flat headed pins",
+        "price":"9.99",
+        "stars":3
+    }
+]
