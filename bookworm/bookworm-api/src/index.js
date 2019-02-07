@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import mongoose from 'mongoose';
 
 const app = express();
 
@@ -8,6 +9,7 @@ app.get('/*', (req, res) => {
 })
 
 app.post("/api/auth", (req, res) =>{
+    //console.log(req);
     res.status(400).json({errors: {global: "invalid cred"}})
 })
 
