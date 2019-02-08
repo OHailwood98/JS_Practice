@@ -32,8 +32,10 @@ class LoginForm extends React.Component{
             this.setState({loading:true})
             this.props
             .submit(this.state.data)
-            .catch(err => 
-                this.setState({error:err.response.data.errors, loading:false}))
+            .catch(err => this.setState({error:err.response.data.errors, loading:false}))
+            .catch(data => {if(data.response.success){
+                window.alert("Login Successful!")
+            }})
         }
     }
 
