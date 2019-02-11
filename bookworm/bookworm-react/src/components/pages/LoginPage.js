@@ -7,10 +7,10 @@ import {login} from '../../actions/auth'
 
 class LoginPage extends React.Component{
 
-    constructor(){
+    /** constructor(){
         super()
         this.submit = this.submit.bind(this);
-    }
+    }*/
 
     render(){
         return (
