@@ -27,7 +27,7 @@ class LoginPage extends React.Component{
         console.log("submit funct" + data.toString())
         this.props.login(data).then(() => this.props.history.push("/"));
     }*/
-    submit = data => this.props.login(data).then(() => this.props.history.push("/"));
+    submit = data => this.props.login(data).then(() => this.props.history.push("/dashboard"));
 }
 
 LoginPage.propType = {
