@@ -7,11 +7,6 @@ import {login} from '../../actions/auth'
 
 class LoginPage extends React.Component{
 
-    /** constructor(){
-        super()
-        this.submit = this.submit.bind(this);
-    }*/
-
     render(){
         return (
         <div>
@@ -22,11 +17,6 @@ class LoginPage extends React.Component{
         </div>
         ); 
     }
-    
-    /** submit(data){
-        console.log("submit funct" + data.toString())
-        this.props.login(data).then(() => this.props.history.push("/"));
-    }*/
     submit = data => this.props.login(data).then(() => this.props.history.push("/dashboard"));
 }
 

@@ -21,3 +21,8 @@ export const logout = () => (dispatch) =>{
     localStorage.removeItem('bookwormToken');
     dispatch(userLoggedOut())
 }
+
+export const signup = (credentials) => (dispatch) => api.user.signup(credentials).then(user => {
+    localStorage.bookwormToken = user.token;
+    dispatch(userLoggedIn(user))
+});
