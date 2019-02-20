@@ -1,25 +1,32 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
+import PropType from 'prop-types'
 import {logout} from '../../actions/auth'
 
 
 
-function Homepage({isAuthed, logout}){
+function Homepage({isAuthed, logout, history}){
     return (
       <div>
         <header>
           <p>my homepage header</p>
-          {isAuthed ? <button onClick={() => logout()}>logout</button> : <Link to="/login">Login</Link>}
+          {isAuthed ? 
+            <button onClick={() => logout()}>Logout</button> : 
+            <div>
+              <button onClick={() => history.push("/login")}>Login</button>
+              <button onClick={() => history.push("/signup")}>New User? Signup Here!</button>
+            </div>}
         </header>
       </div>
     );
 }
 
 Homepage.propTypes = {
-  isAuthed : PropTypes.bool.isRequired,
-  logout : PropTypes.func.isRequired
+  history: PropType.shape({
+    push: PropType.func.isRequired
+  }).isRequired,
+  isAuthed : PropType.bool.isRequired,
+  logout : PropType.func.isRequired
 }
 
 function mapStateToProps(state){

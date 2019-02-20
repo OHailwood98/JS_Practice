@@ -4,7 +4,7 @@ import Validator from 'validator'
 import InlineError from '../messages/InlineError'
 import PropTypes from 'prop-types'
 
-class LoginForm extends React.Component{
+class SignupForm extends React.Component{
     constructor(){
         super()
         this.state = {
@@ -33,8 +33,9 @@ class LoginForm extends React.Component{
             this.props
             .submit(this.state.data)
             .catch(err => {
-                console.dir(err)
-                return (this.setState({error:err.response.data.errors, loading:false}));
+                console.log("caught error")
+                console.dir(err.response.data.errors.email.message)
+                return (this.setState({error:err.response.data.errors.email, loading:false}))
             })
         }
     }
@@ -51,9 +52,9 @@ class LoginForm extends React.Component{
         const {data, error, loading} = this.state;
         return(
             <Form onSubmit={this.onSubmit} loading={loading}>
-                {error.global && (
+                {error.message && (
                     <Message negative>
-                        <Message.Header>Something Failed! :(</Message.Header>
+                        <Message.Header>Failure: {error.message}</Message.Header>
                         <p>{error.global}</p>
                     </Message>
                 )
@@ -78,8 +79,8 @@ class LoginForm extends React.Component{
     }
 }
 
-LoginForm.propType = {
+SignupForm.propType = {
     submit: PropTypes.func.isRequired
 }
 
-export default LoginForm
+export default SignupForm

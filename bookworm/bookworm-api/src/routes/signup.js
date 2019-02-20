@@ -1,15 +1,23 @@
 import express from 'express';
-//import User from '../models/user'
+import User from '../models/user';
+import {sendConfirmEmail} from '../mailer'
 
 const router = express.Router();
 
 router.post("/", (req, res)=>{
     const {credentials} = req.body;
- 
-    res.status(400).json({errors: {global: "Password Incorrect or User Not Found"}})
+    const user = new User({
+        email:credentials.email,
+    })
 
-    console.log(credentials)
-
+    user.setPassword(credentials.password);
+    user.setConfirmToken();
+    user.save()
+        .then(user => {
+            sendConfirmEmail(user)
+            res.json({success:true, user: user.toAuthJson()})
+        })
+        .catch(err => res.status(400).json({ errors: err.errors }));
 })
 
 export default router;
