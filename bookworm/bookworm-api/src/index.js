@@ -3,6 +3,7 @@ import path from 'path';
 import mongoose from 'mongoose';
 import auth from './routes/auth'
 import signup from './routes/signup'
+import confirm from './routes/confirm'
 import bodyParser from 'body-parser'
 import dotenv from "dotenv";
 import Promise from 'bluebird';
@@ -27,5 +28,7 @@ app.get('/*', (req, res) => {
 app.use('/api/auth', auth);
 
 app.use('/api/signup', signup);
+
+app.use('/api/confirm', confirm);
 
 app.listen(8080, () => console.log("listening on 8080"))

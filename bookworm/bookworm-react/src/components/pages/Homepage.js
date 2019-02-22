@@ -3,8 +3,6 @@ import {connect} from 'react-redux'
 import PropType from 'prop-types'
 import {logout} from '../../actions/auth'
 
-
-
 function Homepage({isAuthed, logout, history}){
     return (
       <div>
