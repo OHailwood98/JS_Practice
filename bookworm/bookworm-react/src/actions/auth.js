@@ -28,7 +28,7 @@ export const signup = (credentials) => (dispatch) => api.user.signup(credentials
 });
 
 export const confirm = (eToken) => (dispatch) => api.user.confirm(eToken).then(user => {
+    dispatch(userLoggedOut())
     localStorage.bookwormToken = user.token;
-    //console.log(user);
     dispatch(userLoggedIn(user))
 });

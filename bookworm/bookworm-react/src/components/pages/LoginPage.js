@@ -13,11 +13,13 @@ class LoginPage extends React.Component{
             <header>
             <p>my login header</p>
             </header>
-            <LoginForm submit={this.submit}/>
+            <LoginForm submit={this.submit} reset={this.reset}/>
         </div>
         ); 
     }
     submit = data => this.props.login(data).then(() => this.props.history.push("/dashboard"));
+
+    reset = () => this.props.history.push("/");
 }
 
 LoginPage.propType = {

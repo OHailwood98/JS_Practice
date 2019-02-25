@@ -13,7 +13,7 @@ class ConfirmPage extends React.Component{
     }
     componentDidMount(){
         this.props.confirm(this.state.eToken)
-            .then(user=>{this.setState({loading:false, confirmed:true})
+            .then(()=>{this.setState({loading:false, confirmed:true})
                 //console.log(user)
             })
             .catch(err => {
@@ -41,9 +41,9 @@ class ConfirmPage extends React.Component{
                 </div>)}
 
                 {error.global && (
-                    <Message negative>
-                        <Message.Header>Something Failed! :(</Message.Header>
-                        <p>{error.global}</p>
+                    <Message negative icon>
+                        <Icon name="exclamation triangle" />
+                        <Message.Header>Something Failed! :(   {error.global}</Message.Header>
                     </Message>
                 )}
             </div>

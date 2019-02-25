@@ -3,6 +3,7 @@ import {Form, Button, Message} from 'semantic-ui-react'
 import Validator from 'validator'
 import InlineError from '../messages/InlineError'
 import PropTypes from 'prop-types'
+import {Redirect} from 'react-router'
 
 class LoginForm extends React.Component{
     constructor(){
@@ -45,40 +46,47 @@ class LoginForm extends React.Component{
         if(!Validator.isEmail(data.email)) errors.email = "Invalid Email"
         return errors;
     }
-    
 
     render(){
         const {data, error, loading} = this.state;
         return(
-            <Form onSubmit={this.onSubmit} loading={loading}>
-                {error.global && (
-                    <Message negative>
-                        <Message.Header>Something Failed! :(</Message.Header>
-                        <p>{error.global}</p>
-                    </Message>
-                )
-                }
-                <Form.Field error={!!error.email}>
-                   <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="address@example.com" value={data.email} onChange={this.onChange} />
-                    {error.email && <InlineError message={error.email}/>}
-                    <br/> 
-                </Form.Field>
-                <Form.Field error={!!error.password}>
-                   <label htmlFor="email">Password</label>
-                    <input type="password" id="password" name="password" placeholder="password" value={data.password} onChange={this.onChange} />
-                    {error.password && <InlineError message={error.password}/>}
-                    <br/>
-                    <br/> 
-                </Form.Field>
-                
-                <Button primary>Login</Button>
-            </Form>
+            <div>
+                <Form onSubmit={this.onSubmit} loading={loading}>
+                    {error.global && (
+                        <Message negative>
+                            <Message.Header>Something Failed! :(</Message.Header>
+                            <p>{error.global}</p>
+                        </Message>
+                    )
+                    }
+                    <Form.Field error={!!error.email}>
+                    <label htmlFor="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="address@example.com" value={data.email} onChange={this.onChange} />
+                        {error.email && <InlineError message={error.email}/>}
+                        <br/> 
+                    </Form.Field>
+                    <Form.Field error={!!error.password}>
+                    <label htmlFor="email">Password</label>
+                        <input type="password" id="password" name="password" placeholder="password" value={data.password} onChange={this.onChange} />
+                        {error.password && <InlineError message={error.password}/>}
+                        <br/>
+                        <br/> 
+                    </Form.Field>
+                    
+                    <Button primary>Login</Button>
+                </Form>
+                <br/>
+                <br/> 
+                <Button onClick={() => this.props.reset()}>Forgotten your Password?</Button>
+            </div>  
         )
     }
 }
 
 LoginForm.propType = {
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+      }).isRequired,
     submit: PropTypes.func.isRequired
 }
 

@@ -19,7 +19,7 @@ schema.methods.passwordCheck = function passwordCheck(password){
 schema.methods.genToken = function genToken(){
     return jwt.sign({
         email: this.email,
-        //confirmed: this.confirmed
+        confirmed: this.confirmed
     }, process.env.JWT_SECRET)
 }
 

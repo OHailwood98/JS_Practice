@@ -15,8 +15,8 @@ import decode from 'jwt-decode';
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 if(localStorage.bookwormToken){
-    console.dir(localStorage.bookwormToken);
-    const user = {token:localStorage.bookwormToken}//, email: payload.email, confirmed:payload.confirmed};
+    var payload = decode(localStorage.bookwormToken)
+    const user = {email: payload.email, confirmed:payload.confirmed, token:localStorage.bookwormToken};
     //console.dir(user);
     store.dispatch(userLoggedIn(user))
 }
