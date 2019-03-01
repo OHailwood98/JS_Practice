@@ -32,3 +32,15 @@ export const confirm = (eToken) => (dispatch) => api.user.confirm(eToken).then(u
     localStorage.bookwormToken = user.token;
     dispatch(userLoggedIn(user))
 });
+
+export const ForgotPassword = (token) => () => api.user.forgotPassword(token).then(user => {
+    console.dir(user);
+});
+
+export const ResetPassword = (data) => () => api.user.ResetPassword(data).then(user => {
+    console.dir(user);
+});
+
+export const ValidateResetToken = (token) => () => api.user.ValidateResetToken(token).then(user => {
+    //console.dir(user);
+});

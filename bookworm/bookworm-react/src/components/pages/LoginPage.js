@@ -19,14 +19,14 @@ class LoginPage extends React.Component{
     }
     submit = data => this.props.login(data).then(() => this.props.history.push("/dashboard"));
 
-    reset = () => this.props.history.push("/");
+    reset = () => this.props.history.push("/forgotpassword");
 }
 
 LoginPage.propType = {
     history: PropType.shape({
         push: PropType.func.isRequired
     }).isRequired,
-    login: PropType.func.isRequired
+    login: PropType.func.isRequired,
 }
 
 export default connect(null, {login})(LoginPage);

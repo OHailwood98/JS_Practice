@@ -7,6 +7,9 @@ import SignupPage from './components/pages/SignupPage'
 import UserRoute from './components/routes/UserRoute'
 import GuestRoute from './components/routes/GuestRoute'
 import ConfirmPage from './components/pages/ConfirmPage'
+import ResetPage from './components/pages/ForgotPage'
+import ResetPasswordPage from './components/pages/ResetPage'
+
 
 
 function App(){
@@ -15,6 +18,8 @@ function App(){
       <Switch>
         <Route path="/" exact component={Homepage}/>
         <Route path="/confirmation/:token" exact component={ConfirmPage}/>
+        <Route path="/passwordreset/:token" exact component={ResetPasswordPage}/>
+        <Route path="/forgotpassword" exact component={ResetPage}/>
         <GuestRoute path="/login" exact component={LoginPage}/>
         <GuestRoute path="/signup" exact component={SignupPage}/>
         <UserRoute path="/dashboard" exact component={DashboardPage}/>

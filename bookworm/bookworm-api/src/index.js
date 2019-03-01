@@ -4,6 +4,9 @@ import mongoose from 'mongoose';
 import auth from './routes/auth'
 import signup from './routes/signup'
 import confirm from './routes/confirm'
+import forgot from './routes/forgot';
+import validatePasswordToken from './routes/validatePasswordToken'
+import resetPassword from './routes/resetPassword';
 import bodyParser from 'body-parser'
 import dotenv from "dotenv";
 import Promise from 'bluebird';
@@ -30,5 +33,11 @@ app.use('/api/auth', auth);
 app.use('/api/signup', signup);
 
 app.use('/api/confirm', confirm);
+
+app.use('/api/forgot', forgot);
+
+app.use('/api/validate', validatePasswordToken);
+
+app.use('/api/reset', resetPassword)
 
 app.listen(8080, () => console.log("listening on 8080"))

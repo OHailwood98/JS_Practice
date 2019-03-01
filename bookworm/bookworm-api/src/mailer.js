@@ -20,9 +20,25 @@ export function sendConfirmEmail(user){
         to: user.email,
         subject: "Bookworm Confirmation",
         text: `
-        welcome to bookworm, Please Confirm you Email.
+        Welcome to Bookworm, Please Confirm you Email.
         
         ${user.genConfirmUrl()}`
     }
     transport.sendMail(email);
+}
+
+export function sendResetEmail(user){
+  const transport = setup()
+  const email = {
+      from: sender,
+      to: user.email,
+      subject: "Bookworm Password Reset",
+      text: `
+      Please reset your Password by following the link bellow.
+      
+      this will only function for the 10 minutes after this email was sent
+      
+      ${user.genResetUrl()}`
+  }
+  transport.sendMail(email);
 }

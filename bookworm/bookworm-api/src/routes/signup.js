@@ -9,7 +9,7 @@ router.post("/", (req, res)=>{
     const user = new User({
         email:credentials.email,
     })
-
+    
     user.setPassword(credentials.password);
     user.setConfirmToken();
     user.save()
