@@ -3,12 +3,13 @@ import {Form, Button, Message} from 'semantic-ui-react'
 import InlineError from '../messages/InlineError'
 import PropTypes from 'prop-types'
 
-class ResetForm extends React.Component{
+class PasswordForm extends React.Component{
+
     constructor(){
         super()
         this.state = {
             data:{
-                token:"",
+                email: "",
                 passwordCon:"",
                 password:""
             },
@@ -20,7 +21,7 @@ class ResetForm extends React.Component{
     }
 
     componentDidMount(){
-        this.setState({data:{token: this.props.reset}});
+        this.setState({data:{email:this.props.email}})
     }
 
     onChange(event){
@@ -36,7 +37,7 @@ class ResetForm extends React.Component{
         if(Object.keys(errors).length ===0){
             this.setState({loading:true})
             this.props
-            .submit({password:this.state.data.password, token: this.state.data.token})
+            .submit({email:this.state.data.email, password:this.state.data.password})
             .catch(err => {
                 console.dir(err)
                 return (this.setState({error:err.response.data.errors, loading:false}));
@@ -56,7 +57,7 @@ class ResetForm extends React.Component{
         return(
             <div>
                 <Form onSubmit={this.onSubmit} loading={loading}>
-                    <h2>Reset Your Password Here</h2>
+                    <h2>Update Your Password Here</h2>
                     {error.global && (
                         <Message negative>
                             <Message.Header>Something Failed! :(</Message.Header>
@@ -78,7 +79,7 @@ class ResetForm extends React.Component{
                         <br/> 
                     </Form.Field>
                     
-                    <Button primary>Reset Password</Button>
+                    <Button primary>Update Password</Button>
                 </Form>
                 <br/>
                 <br/> 
@@ -87,12 +88,9 @@ class ResetForm extends React.Component{
     }
 }
 
-ResetForm.propType = {
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-      }).isRequired,
-    submit: PropTypes.func.isRequired,
-    reset:PropTypes.string.isRequired
+PasswordForm.propTypes = {
+    email: PropTypes.string.isRequired,
+    submit: PropTypes.func.isRequired
 }
 
-export default ResetForm
+export default PasswordForm;

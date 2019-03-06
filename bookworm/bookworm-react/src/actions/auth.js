@@ -37,7 +37,13 @@ export const ForgotPassword = (token) => () => api.user.forgotPassword(token).th
     console.dir(user);
 });
 
-export const ResetPassword = (data) => () => api.user.ResetPassword(data).then(user => {
+export const ResetPassword = (data) => (dispatch) => api.user.ResetPassword(data).then(user => {
+    dispatch(userLoggedIn(user))
+    console.dir(user);
+});
+
+export const UpdatePassword = (data) => (dispatch) => api.user.UpdatePassword(data).then(user => {
+    dispatch(userLoggedIn(user))
     console.dir(user);
 });
 

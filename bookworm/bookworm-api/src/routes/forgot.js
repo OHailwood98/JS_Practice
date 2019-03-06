@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", (req, res)=>{
 
-    console.log(req.body)
+    //console.log(req.body)
 
     User.findOne({email:req.body.email}).then(user =>{
         if (user){

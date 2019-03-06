@@ -15,7 +15,7 @@ router.post("/", (req, res)=>{
     user.save()
         .then(user => {
             sendConfirmEmail(user)
-            res.json({user: user.toAuthJson()})
+            res.status(200).json({user: user.toAuthJson()})
         })
         .catch(err => res.status(400).json({ errors: err.errors }));
 })

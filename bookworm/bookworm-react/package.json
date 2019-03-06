@@ -10,6 +10,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
+    "gravatar": "^1.8.0",
+    "gravatar-url": "^2.0.0",
     "jwt-decode": "^2.2.0",
     "prettier": "^1.16.4",
     "react": "^16.7.0",

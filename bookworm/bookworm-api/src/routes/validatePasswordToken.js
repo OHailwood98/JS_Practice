@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", (req, res)=>{
 
-    console.log(req.body)
+    //console.log(req.body)
     User.findOne({resetToken:req.body.token}).then(user =>{
         if(user && user.validateResetToken()){
             

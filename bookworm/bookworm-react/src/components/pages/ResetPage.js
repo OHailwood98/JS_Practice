@@ -40,7 +40,7 @@ class ResetPasswordPage extends React.Component{
             </div>
         )}
 
-    submit = data => this.props.ResetPassword(data).then(() => this.props.history.push("/forgotpassword"));
+    submit = data => this.props.ResetPassword(data).then(() => this.props.history.push("/dashboard"));
 }
 
 ResetPasswordPage.propTypes = {

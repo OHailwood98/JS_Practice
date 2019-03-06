@@ -5,6 +5,7 @@ import auth from './routes/auth'
 import signup from './routes/signup'
 import confirm from './routes/confirm'
 import forgot from './routes/forgot';
+import updatePassword from './routes/updatePassword';
 import validatePasswordToken from './routes/validatePasswordToken'
 import resetPassword from './routes/resetPassword';
 import bodyParser from 'body-parser'
@@ -39,5 +40,7 @@ app.use('/api/forgot', forgot);
 app.use('/api/validate', validatePasswordToken);
 
 app.use('/api/reset', resetPassword)
+
+app.use('/api/updatepassword', updatePassword)
 
 app.listen(8080, () => console.log("listening on 8080"))
