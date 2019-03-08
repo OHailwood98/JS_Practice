@@ -11,6 +11,7 @@ import ResetPage from './components/pages/ForgotPage'
 import ResetPasswordPage from './components/pages/ResetPage'
 import PasswordUpdatePage from './components/pages/PasswordPage'
 import TopNavBar from './components/nav/TopNavBar'
+import BookSearchPage from './components/pages/BookSearchPage'
 
 
 
@@ -24,6 +25,7 @@ function App(){
         <Route path="/passwordreset/:token" exact component={ResetPasswordPage}/>
         <Route path="/forgotpassword" exact component={ResetPage}/>
         <Route path="/passwordupdate" exact component={PasswordUpdatePage}/>
+        <Route path="/books/new" exact component={BookSearchPage}/>
         <GuestRoute path="/login" exact component={LoginPage}/>
         <GuestRoute path="/signup" exact component={SignupPage}/>
         <UserRoute path="/dashboard" exact component={DashboardPage}/>
