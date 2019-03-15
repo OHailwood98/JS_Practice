@@ -3,7 +3,6 @@ import {Form, Dropdown} from 'semantic-ui-react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 
-
 class BookSearchForm extends React.Component{
     constructor(){
         super()
@@ -21,9 +20,11 @@ class BookSearchForm extends React.Component{
             }],
             books:{}
         }
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onSearchChange = this.onSearchChange.bind(this);
     }
+
+    
 
     onSearchChange(e, data){
         clearTimeout(this.timer);
@@ -35,10 +36,26 @@ class BookSearchForm extends React.Component{
         if(!this.state.query)return;
         this.setState({loading:true});
         axios.get(`/api/books/search?q=${this.state.query}`)
-            .then(res => console.dir(res))
+            .then(res => res.data.books)
+            .then(books =>{
+                const options = [];
+                const booksHash = {};
+                books.forEach(book => {
+                    booksHash[book.goodreadsId] = book;
+                    options.push({
+                        key:book.goodreadsId,
+                        value: book.goodreadsId,
+                        //content:<SearchResultForm Book={book} /> ,
+                        text:book.title + "\n Written by: " + book.authors
+                    })
+                });
+                this.setState({loading:false, options, books:booksHash })
+            })
     }
 
-    onSubmit(){
+    onChange(e, data){
+        this.setState({query:data.value})
+        this.props.onSelectBook(this.state.books[data.value])
     }
 
     render(){
@@ -47,7 +64,8 @@ class BookSearchForm extends React.Component{
                 <Form>
                     <Dropdown search fluid placeholder="Search for Books by Title" 
                     value={this.state.query} onSearchChange={this.onSearchChange}
-                    options={this.state.options} loading={this.state.loading} />
+                    options={this.state.options} loading={this.state.loading}
+                    onChange={this.onChange} />
                 </Form>
             </div>  
         )
@@ -55,9 +73,7 @@ class BookSearchForm extends React.Component{
 }
 
 BookSearchForm.propType = {
-    history: PropTypes.shape({
-        push: PropTypes.func.isRequired
-      }).isRequired
+    onSelectBook: PropTypes.func.isRequired
 }
 
 export default BookSearchForm

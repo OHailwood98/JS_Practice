@@ -17,7 +17,7 @@ class LoginPage extends React.Component{
         </div>
         ); 
     }
-    submit = data => this.props.login(data).then(() => this.props.history.push("/dashboard"));
+    submit = data => this.props.login(data).then(() => this.props.history.push("/"));
 
     reset = () => this.props.history.push("/forgotpassword");
 }

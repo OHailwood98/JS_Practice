@@ -9,5 +9,8 @@ export default {
         ResetPassword:(data) => axios.post("/api/reset", {data}).then(res =>res.data.user),
         ValidateResetToken:(token) => axios.post("/api/validate", {token}).then(res =>res.data.user),
         UpdatePassword:(data) => axios.post("/api/updatepassword", {data}).then(res =>res.data.user),
+    },
+    books:{
+        getAll: () => axios.get("/api/books/").then(res => res.data.books)
     }
 }

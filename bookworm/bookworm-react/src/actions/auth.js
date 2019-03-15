@@ -1,6 +1,7 @@
 import {USER_LOGGED_IN} from "../types"
 import {USER_LOGGED_OUT} from "../types"
 import api from "../api"
+import setAuthHeader from '../utils/setAuthHeader'
 
 
 export const userLoggedIn = user => ({
@@ -11,6 +12,7 @@ export const userLoggedIn = user => ({
 export const login = (credentials) => (dispatch) => api.user.login(credentials).then(user => {
     localStorage.bookwormToken = user.token;
     dispatch(userLoggedIn(user))
+    setAuthHeader(user.token);
 });
 
 export const userLoggedOut = () =>({
@@ -20,6 +22,7 @@ export const userLoggedOut = () =>({
 export const logout = () => (dispatch) =>{
     localStorage.removeItem('bookwormToken');
     dispatch(userLoggedOut())
+    setAuthHeader();
 }
 
 export const signup = (credentials) => (dispatch) => api.user.signup(credentials).then(user => {

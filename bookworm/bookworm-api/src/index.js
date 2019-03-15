@@ -21,13 +21,6 @@ mongoose.Promise = Promise;
 mongoose.set('useCreateIndex', true);
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
-
-
-/** app.post("/api/auth", (req, res) =>{
-    console.log(req);
-    res.status(400).json({errors: {global: "invalid cred"}})
-})*/
-
 app.use('/api/auth', auth);
 
 app.use('/api/signup', signup);
@@ -43,6 +36,8 @@ app.use('/api/reset', resetPassword)
 app.use('/api/updatepassword', updatePassword)
 
 app.use('/api/books', bookSearch)
+
+app.use('/images', express.static(path.join(__dirname, 'public'))) // !! usefull 4 mum!!
 
 app.get('/*', (req, res) => {
     //console.dir(req);

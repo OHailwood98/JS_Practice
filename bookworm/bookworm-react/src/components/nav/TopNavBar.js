@@ -12,7 +12,7 @@ function TopNavBar({user, logout}){
             <br/>
             <Menu.Item as={Link} to="/">Home</Menu.Item>
             {!!user.email && <Menu.Item as={Link} to="/dashboard">Dashboard</Menu.Item>}
-            <Menu.Item as={Link} to="/books/new">Book Search</Menu.Item>
+            {!!user.email && <Menu.Item as={Link} to="/books/new">Book Search</Menu.Item>}
             <Menu.Menu position="right">
             {!!user.email ? 
                 <Dropdown trigger={<Image avatar src={gravatarURL(user.email)}/>}>
