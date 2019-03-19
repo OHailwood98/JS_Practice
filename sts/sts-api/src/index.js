@@ -1,10 +1,12 @@
 import express from 'express';
 import path from 'path';
 import mongoose from 'mongoose';
-import auth from './routes/auth'
 import bodyParser from 'body-parser'
 import dotenv from "dotenv";
 import Promise from 'bluebird';
+import auth from './routes/auth'
+import products from './routes/products'
+
 
 dotenv.config();
 
@@ -15,6 +17,8 @@ app.use(bodyParser.json())
 //mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
 app.use('/api/auth', auth);
+
+app.use('/api/products', products);
 
 app.use('/images', express.static(path.join(__dirname, 'public'))) // !! usefull 4 mum!!  "http://localhost:8080/images/static/r34.jpg"
 
