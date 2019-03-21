@@ -10,16 +10,17 @@ class NewProductForm extends React.Component{
             data:{
                 name: "",
                 description: "",
-                price: 0,
+                price: "",
                 stock: 1,
-                oneOff: true
+                filepath: ""
             },
+            file: null,
             loading: false,
             error: {}
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onCheckChange = this.onCheckChange.bind(this);
+        this.onPicSelected = this.onPicSelected.bind(this);
     }
 
     onChange(event){
@@ -28,42 +29,42 @@ class NewProductForm extends React.Component{
          this.setState({data: {...this.state.data, [name]: value}});
     }
 
-    onCheckChange(){
-        this.setState({data:{...this.state.data, oneOff: !this.state.data.oneOff}})
-    }
-
     onChangeNumber = e => this.setState({
         ...this.state,
         data:{...this.state.data, [e.target.name]: parseFloat(e.target.value)}
     });
+
+    onPicSelected(event){
+        this.setState({file: event.target.files[0], data: {...this.state.data, filepath:event.target.files[0].name}})
+        console.log(event.target.files[0])
+    }
   
     onSubmit(){
-        const errors = this.validate(this.state.data);
+        const errors = this.validate(this.state);
         this.setState({error:errors});
         if(Object.keys(errors).length ===0){
             const data = new FormData();
-            data.append('file', this.state.image)
-            data.append('filename', this.state.data.name )
+            data.append('image', this.state.file)
             this.setState({loading:true})
             this.props
             .submit(this.state.data)
             .catch(err => {
                 console.log("caught error")
-                console.dir(err.response.data.errors.email.message)
-                return (this.setState({error:err.response.data.errors.email, loading:false}))
+                console.dir(err.response.data.errors)
+                return (this.setState({error:err.response.data.errors, loading:false}))
             })
-            .then(this.props.submitPic(data))
+            this.props.submitPic(data)
         }
     }
 
-    validate(data){
+    validate(state){
         const errors = {};
-        if(!data.name) errors.name = "No Input"
-        if(!data.description) errors.description = "No Input"
-        if(!data.price) errors.price = "No Input"
-        if(!data.stock) errors.stock = "No Input"
-        if(!data.stock>0) errors.stock = "Stock has to be more than 0"
-        //if(!data.image) errors.image = "No image"
+        if(!state.data.name) errors.name = "No Input"
+        if(!state.data.description) errors.description = "No Input"
+        if(!state.data.price) errors.price = "No Input"
+        if(!state.data.stock) errors.stock = "No Input"
+        if(!state.data.stock>0) errors.stock = "Stock has to be more than 0"
+        if(!state.file) errors.file = "No image"
         return errors;
     }
     
@@ -93,7 +94,7 @@ class NewProductForm extends React.Component{
                 </Form.Field>
                 <Form.Field error={!!error.price}>
                    <label htmlFor="price">Price</label>
-                    <input type="number" id="price" name="price"  value={data.price} onChange={this.onChangeNumber} />
+                    <input type="text" id="price" name="price" placeholder="£ price" value={data.price} onChange={this.onChange} />
                     {error.price && <InlineError message={error.price}/>}
                     <br/> 
                 </Form.Field>
@@ -103,9 +104,9 @@ class NewProductForm extends React.Component{
                     {error.stock && <InlineError message={error.stock}/>}
                     <br/> 
                 </Form.Field>
-                <Form.Field>
-                   <label htmlFor="oneOff">One Off Product</label>
-                    <input type="checkbox" id="oneOff" name="oneOff" checked={data.oneOff} onChange={this.onCheckChange} />
+                <Form.Field error={!!error.file}>
+                   <label htmlFor="image">Image</label>
+                    <input type="file" id="image" name="image" onChange={this.onPicSelected} />
                     <br/> 
                 </Form.Field>
                 <br/> 

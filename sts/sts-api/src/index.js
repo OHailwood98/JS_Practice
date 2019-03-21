@@ -12,13 +12,14 @@ dotenv.config();
 
 const app = express();
 app.use(bodyParser.json())
-//mongoose.Promise = Promise;
-//mongoose.set('useCreateIndex', true);
-//mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
+app.use(bodyParser.urlencoded({extended: true}));
+mongoose.Promise = Promise;
+mongoose.set('useCreateIndex', true);
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
 
 app.use('/api/auth', auth);
 
-app.use('/api/products', products);
+app.use('/api/products/', products);
 
 app.use('/images', express.static(path.join(__dirname, 'public'))) // !! usefull 4 mum!!  "http://localhost:8080/images/static/r34.jpg"
 

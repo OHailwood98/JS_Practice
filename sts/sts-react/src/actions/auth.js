@@ -10,7 +10,7 @@ export const userLoggedIn = user => ({
 })
 
 export const login = (credentials) => (dispatch) => api.user.login(credentials).then(user => {
-    localStorage.bookwormToken = user.token;
+    localStorage.stsToken = user.token;
     dispatch(userLoggedIn(user))
     setAuthHeader(user.token);
 });

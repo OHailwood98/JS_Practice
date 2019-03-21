@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {Form} from "semantic-ui-react";
 import NewProductForm from '../forms/NewProductForm'
 import api from '../../api'
 
@@ -20,9 +19,9 @@ class AddProductPage extends React.Component {
     );
   }
 
-  submit = data => api.user.addItem(data).then(() => this.props.history.push("/staffhome"));
+  submit = data => api.product.addItem(data).then(() => this.props.history.push("/staffhome"));
 
-  submitPic = data => api.user.addPicture(data);
+  submitPic = data => api.product.addPicture(data);
 }
 
 AddProductPage.propTypes = {
