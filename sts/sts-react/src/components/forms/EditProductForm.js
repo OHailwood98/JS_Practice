@@ -1,26 +1,39 @@
 import React from 'react'
-import {Form, Button, Message} from 'semantic-ui-react'
+import {Form, Button, Message, Grid, Image} from 'semantic-ui-react'
 import InlineError from '../messages/InlineError'
 import PropTypes from 'prop-types'
 
-class NewProductForm extends React.Component{
-    constructor(){
-        super()
+class EditProductForm extends React.Component{
+    constructor(props){
+        super(props)
         this.state = {
             data:{
+                id: props.id,
                 name: "",
                 description: "",
                 price: "",
                 stock: 1,
-                filepath: ""
+                imagepath: ""
             },
-            file: null,
             loading: false,
             error: {}
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.onPicSelected = this.onPicSelected.bind(this);
+    }
+
+    componentDidMount(){
+        this.props.getProductById(this.state.data.id)
+            .then(product =>{
+                this.setState({data:{
+                    ...this.state.data,
+                    name: product.name,
+                    description: product.desc,
+                    price: product.price,
+                    stock: product.stock,
+                    imagepath: product.imagepath
+                }})
+            })
     }
 
     onChange(event){
@@ -33,19 +46,11 @@ class NewProductForm extends React.Component{
         ...this.state,
         data:{...this.state.data, [e.target.name]: parseInt(e.target.value)}
     });
-
-    onPicSelected(event){
-        this.setState({file: event.target.files[0], data: {...this.state.data, filepath:event.target.files[0].name}})
-        console.log(event.target.files[0])
-    }
   
     onSubmit(){
         const errors = this.validate(this.state);
         this.setState({error:errors});
         if(Object.keys(errors).length ===0){
-            const data = new FormData();
-            data.append('image', this.state.file)
-            this.setState({loading:true})
             this.props
             .submit(this.state.data)
             .catch(err => {
@@ -53,7 +58,6 @@ class NewProductForm extends React.Component{
                 console.dir(err.response.data.errors)
                 return (this.setState({error:err.response.data.errors, loading:false}))
             })
-            this.props.submitPic(data)
         }
     }
 
@@ -64,7 +68,6 @@ class NewProductForm extends React.Component{
         if(!state.data.price) errors.price = "No Input"
         if(!state.data.stock) errors.stock = "No Input"
         if(!state.data.stock>0) errors.stock = "Stock has to be more than 0"
-        if(!state.file) errors.file = "No image"
         return errors;
     }
     
@@ -104,21 +107,32 @@ class NewProductForm extends React.Component{
                     {error.stock && <InlineError message={error.stock}/>}
                     <br/> 
                 </Form.Field>
-                <Form.Field error={!!error.file}>
-                   <label htmlFor="image">Image</label>
-                    <input type="file" id="image" name="image" onChange={this.onPicSelected} />
+                <Form.Field error={!!error.stock}>
+                   <label htmlFor="image">Image: {data.imagepath}</label>
+                    <Image src={data.imagepath} id="image" size="small"/>
+                    {error.stock && <InlineError message={error.stock}/>}
                     <br/> 
                 </Form.Field>
-                <br/> 
-                <Button primary>Add Product</Button>
+                <br/>
+                <Grid centered columns={2} stackable>
+                <Grid.Row centered> 
+                    <Grid.Column>
+                        <Button fluid primary>Save Product</Button>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <Button onClick={this.props.back} fluid>Return to Home</Button>
+                    </Grid.Column>
+                </Grid.Row>
+                </Grid>
             </Form>
         )
     }
 }
 
-NewProductForm.propType = {
+EditProductForm.propType = {
     submit: PropTypes.func.isRequired,
-    submitPic: PropTypes.func.isRequired
+    getProductById: PropTypes.func.isRequired,
+    back: PropTypes.func.isRequired
 }
 
-export default NewProductForm
+export default EditProductForm

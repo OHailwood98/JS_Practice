@@ -17,6 +17,14 @@ var upload = multer({ storage: storage })
 
 const router = express.Router()
 
+
+router.get("/", (req,res) =>{
+   Product.find().then(products =>{
+      res.status(200).json({products: products})
+   })
+})
+
+
 router.post('/addpic', upload.single('image'), (req, res) => {
 
    console.log(req.body)
@@ -71,13 +79,32 @@ router.post("/reduce", (req, res)=>{
    
 })
 
-router.get("/", (req,res) =>{
-   Product.find().then(prodcuts =>{
-      var prodcut = [];
-      prodcuts.forEach(p => {
-         //prodcut.push(p.mapInfo())
-      });
-      res.status(200).json({products: prodcuts})
+router.post("/id", (req,res) =>{
+   var {id} = req.body
+   Product.findById(id).then(product =>{
+      if(product){
+         res.status(200).json({product: product})
+      }else{
+         res.status(400).json({errors: {global:"Product Not Found"}})
+      }
+   })
+})
+
+router.post("/edit", (req,res) =>{
+   var {credentials} = req.body
+   console.dir(credentials)
+   Product.findById(credentials.id).then(product =>{
+      if(product){
+         product.name= credentials.name;
+         product.desc= credentials.description;
+         product.price = credentials.price;
+         product.stock = credentials.stock;
+         product.save()
+            .then(product => res.status(200).json({success: true}))
+            .catch(err => res.status(400).json({errors: {global:"Update Failed"}}))
+      }else{
+         res.status(400).json({errors: {global:"Product Not Found"}})
+      }
    })
 })
 
