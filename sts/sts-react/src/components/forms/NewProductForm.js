@@ -1,7 +1,8 @@
 import React from 'react'
-import {Form, Button, Message} from 'semantic-ui-react'
+//import {Form, Button, Message} from 'semantic-ui-react'
 import InlineError from '../messages/InlineError'
 import PropTypes from 'prop-types'
+import {Alert, Button, Form} from 'react-bootstrap'
 
 class NewProductForm extends React.Component{
     constructor(){
@@ -39,7 +40,8 @@ class NewProductForm extends React.Component{
         console.log(event.target.files[0])
     }
   
-    onSubmit(){
+    onSubmit(event){
+        event.preventDefault();
         const errors = this.validate(this.state);
         this.setState({error:errors});
         if(Object.keys(errors).length ===0){
@@ -72,43 +74,38 @@ class NewProductForm extends React.Component{
     render(){
         const {data, error, loading} = this.state;
         return(
-            <Form onSubmit={this.onSubmit} loading={loading}>
+            <Form onSubmit={e => this.onSubmit(e)} loading={loading}>
                 {error.message && (
-                    <Message negative>
-                        <Message.Header>Failure: {error.message}</Message.Header>
+                    <Alert variant="danger">
+                        <Alert.Heading>Something Failed! :(</Alert.Heading>
                         <p>{error.global}</p>
-                    </Message>
+                    </Alert>
                 )
                 }
-                <Form.Field error={!!error.name}>
-                   <label htmlFor="name">Product Name</label>
-                    <input type="text" id="name" name="name" placeholder="product name" value={data.name} onChange={this.onChange} />
-                    {error.name && <InlineError message={error.name}/>}
-                    <br/> 
-                </Form.Field>
-                <Form.Field error={!!error.description}>
-                   <label htmlFor="description">Description</label>
-                    <input type="text" id="description" name="description" placeholder="description" value={data.description} onChange={this.onChange} />
-                    {error.description && <InlineError message={error.description}/>}
-                    <br/>
-                </Form.Field>
-                <Form.Field error={!!error.price}>
-                   <label htmlFor="price">Price</label>
-                    <input type="text" id="price" name="price" placeholder="£ price" value={data.price} onChange={this.onChange} />
-                    {error.price && <InlineError message={error.price}/>}
-                    <br/> 
-                </Form.Field>
-                <Form.Field error={!!error.stock}>
-                   <label htmlFor="stock">Stock</label>
-                    <input type="number" id="stock" name="stock" placeholder={1} value={data.stock} onChange={this.onChangeNumber} />
-                    {error.stock && <InlineError message={error.stock}/>}
-                    <br/> 
-                </Form.Field>
-                <Form.Field error={!!error.file}>
-                   <label htmlFor="image">Image</label>
-                    <input type="file" id="image" name="image" onChange={this.onPicSelected} />
-                    <br/> 
-                </Form.Field>
+                <Form.Group>
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" id="name" name="name" placeholder="product name" value={data.name} onChange={this.onChange} />
+                    {error.password && <InlineError message={error.name}/>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Description</Form.Label>
+                    <Form.Control type="text" id="description" name="description" placeholder="description" value={data.description} onChange={this.onChange} />
+                    {error.password && <InlineError message={error.description}/>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Price</Form.Label>
+                    <Form.Control type="text" id="price" name="price" placeholder="£ price" value={data.price} onChange={this.onChange} />
+                    {error.password && <InlineError message={error.price}/>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Stock</Form.Label>
+                    <Form.Control type="number" id="stock" name="stock" placeholder={1} value={data.stock} onChange={this.onChangeNumber} />
+                    {error.password && <InlineError message={error.stock}/>}
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Image</Form.Label>
+                    <Form.Control type="file" id="image" name="image" onChange={this.onPicSelected} />
+                </Form.Group>
                 <br/> 
                 <Button primary>Add Product</Button>
             </Form>

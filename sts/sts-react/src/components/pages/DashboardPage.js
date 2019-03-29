@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Grid, Form, Button, Segment} from "semantic-ui-react";
+//import { Grid, Form, Button, Segment} from "semantic-ui-react";
 import styled from 'styled-components'
+import {Button, Row, Col} from 'react-bootstrap'
 
 
 class DashboardPage extends React.Component {
@@ -11,10 +12,28 @@ class DashboardPage extends React.Component {
     var Heading = styled.h1`
     text-align: center
     `
-
-    return (
+    return(
       <div>
-        <Segment>
+        <Row centered={"true"}>
+          <Col>
+            <h1>Product Management Center</h1>
+            <br/>
+            <br/>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button variant="primary" size="lg" block onClick={()=> this.props.history.push("/addproduct")}>Add Product</Button>
+          </Col>
+          <Col>
+            <Button variant="primary" size="lg" block onClick={()=> this.props.history.push("/editproduct")} fluid>Edit Product</Button>
+          </Col>
+        </Row>
+      </div>
+    )
+
+    /** return (
+      <div>
           <Form>
           <Grid columns={2} fluid="true" stackable>
             <Grid.Row centered={true}>
@@ -34,9 +53,9 @@ class DashboardPage extends React.Component {
             </Grid.Row>
           </Grid>
           </Form>
-        </Segment>
       </div>
-    );
+    );*/
+
   }
 
   /** 

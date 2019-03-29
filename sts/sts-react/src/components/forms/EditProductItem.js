@@ -1,7 +1,8 @@
 import React from 'react'
-import {Button, Grid} from 'semantic-ui-react'
+//import {Button, Grid} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import {Button, Form, Row, Col} from 'react-bootstrap'
 
 class EditProductItem extends React.Component{
 
@@ -15,11 +16,7 @@ class EditProductItem extends React.Component{
     render(){
         var {product} = this.state
 
-        var Div = styled.div`
-            float: right
-        `
-
-        return(
+        /** return(
             <div class="ui grid">
                 <div class ="row">
                     <div class="eight wide column">
@@ -40,6 +37,30 @@ class EditProductItem extends React.Component{
                         </Div>    
                     </div>
                 </div>
+            </div>
+        )*/
+
+        return(
+            <div>
+                <Row>
+                    <Col md={{ span: 8}}>
+                        <div>
+                            <h2>{product.name}</h2>
+                        </div>
+                        
+                    </Col>
+                    <Col md={{ span: 2}}>
+                        <div>
+                            <Button variant="primary" block onClick={this.reduce}>Reduce Stock</Button>
+                        </div>
+                        
+                    </Col>
+                    <Col md={{ span: 2}}>
+                        <div>
+                            <Button variant="primary" block onClick={this.edit}>Edit Product</Button>
+                        </div>
+                    </Col>
+                </Row>
             </div>
         )
     }

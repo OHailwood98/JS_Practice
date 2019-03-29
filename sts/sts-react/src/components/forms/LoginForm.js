@@ -1,7 +1,7 @@
 import React from 'react'
-import {Form, Button, Message} from 'semantic-ui-react'
 import InlineError from '../messages/InlineError'
 import PropTypes from 'prop-types'
+import {Alert, Button, Form, Row, Col} from 'react-bootstrap'
 
 class LoginForm extends React.Component{
     constructor(){
@@ -10,7 +10,7 @@ class LoginForm extends React.Component{
             data:{
                 password:""
             },
-            loading: false,
+            loading: "false",
             error: {}
         }
         this.onChange = this.onChange.bind(this);
@@ -23,13 +23,15 @@ class LoginForm extends React.Component{
          this.setState({data: {...this.state.data, [name]: value}});
     }
 
-    onSubmit(){
-        this.setState({loading:true})
+    onSubmit(event){
+        event.preventDefault();
+        console.log("**event")
+        this.setState({loading:"true"})
         this.props
         .submit(this.state.data)
         .catch(err => {
             console.dir(err)
-            return (this.setState({error:err.response.data.errors, loading:false}));
+            return (this.setState({error:err.response.data.errors, loading:"false"}));
         })    
     }
 
@@ -37,22 +39,27 @@ class LoginForm extends React.Component{
         const {data, error, loading} = this.state;
         return(
             <div>
-                <Form onSubmit={this.onSubmit} loading={loading}>
-                    {error.global && (
-                        <Message negative>
-                            <Message.Header>Something Failed! :(</Message.Header>
-                            <p>{error.global}</p>
-                        </Message>
-                    )}
-                    <Form.Field error={!!error.password}>
-                    <label htmlFor="email">Password</label>
-                        <input type="password" id="password" name="password" placeholder="password" value={data.password} onChange={this.onChange} />
-                        {error.password && <InlineError message={error.password}/>}
-                        <br/>
-                        <br/> 
-                    </Form.Field>
-                    
-                    <Button primary>Login</Button>
+                <Form loading={loading} onSubmit={e => this.onSubmit(e)}>
+                    <Form.Row>
+                        <Col md={{ span: 6, offset: 3 }}>
+                            {error.global && (
+                                <Alert variant="danger">
+                                    <Alert.Heading>Something Failed! :(</Alert.Heading>
+                                    <p>{error.global}</p>
+                                </Alert>
+                            )}
+                            <Form.Group>
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" id="password" name="password" placeholder="password" value={data.password} onChange={this.onChange} />
+                                {error.password && <InlineError message={error.password}/>}
+                            </Form.Group>
+                        </Col>
+                    </Form.Row>
+                    <Row>
+                        <Col md={{ span: 2, offset: 5 }}>
+                            <Button variant="primary" size="lg" block onClick={e => this.onSubmit(e)}>Login</Button>
+                        </Col>
+                    </Row>
                 </Form>
             </div>  
         )
