@@ -26,8 +26,9 @@ router.get("/", (req,res) =>{
 
 
 router.post('/addpic', upload.single('image'), (req, res) => {
-
-   console.log(req.body)
+   
+   const credentials = req.body;
+   console.log(req.body.name)
    if (!req.file) {
      console.log("No file received");
      return res.send({
@@ -35,30 +36,21 @@ router.post('/addpic', upload.single('image'), (req, res) => {
      });
  
    } else {
-     console.log('file received');
-     return res.send({
-       success: true
-     })
+      console.log('file received');
+      const product = new Product({
+         name: credentials.name,
+         desc: credentials.description,
+         price: credentials.price,
+         stock: credentials.stock,
+         imagepath: "http://localhost:8080/images/static/" + credentials.filepath
+      })
+
+      product.save()
+         .then( prodcut => res.status(200).json({status: "success"}))
+         .catch(err => res.status(400).json({ errors: err.errors }));
+
    }
  });
-
- router.post("/add", (req, res)=>{
-   const {credentials} = req.body;
-
-   const product = new Product({
-      name: credentials.name,
-      desc: credentials.description,
-      price: credentials.price,
-      stock: credentials.stock,
-      imagepath: "http://localhost:8080/images/static/" + credentials.filepath
-   })
-
-   product.save()
-      .then( prodcut => res.status(200).json({status: "success"}))
-      .catch(err => res.status(400).json({ errors: err.errors }));
-
-   console.log(credentials)
-})
 
 router.post("/reduce", (req, res)=>{
    const credentials = req.body;

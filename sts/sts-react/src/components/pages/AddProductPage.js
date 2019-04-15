@@ -14,14 +14,12 @@ class AddProductPage extends React.Component {
     return (
       <div>
           <h2>Add Product</h2>
-          <NewProductForm submit={this.submit} submitPic={this.submitPic}/>
+          <NewProductForm submit={this.submit}/>
       </div>
     );
   }
 
-  submit = data => api.product.addItem(data).then(() => this.props.history.push("/staffhome"));
-
-  submitPic = data => api.product.addPicture(data);
+  submit = data => api.product.addPicture(data).then(() => this.props.history.push("/staffhome"));
 }
 
 AddProductPage.propTypes = {

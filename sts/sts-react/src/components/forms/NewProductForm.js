@@ -43,19 +43,23 @@ class NewProductForm extends React.Component{
     onSubmit(event){
         event.preventDefault();
         const errors = this.validate(this.state);
+        var info = this.state.data;
         this.setState({error:errors});
         if(Object.keys(errors).length ===0){
             const data = new FormData();
             data.append('image', this.state.file)
+            data.append('name', info.name)
+            data.append('description', info.description)
+            data.append('price', info.price)
+            data.append('stock', info.stock)
+            data.append('filepath', info.filepath)
             this.setState({loading:true})
-            this.props
-            .submit(this.state.data)
+            this.props.submit(data)
             .catch(err => {
                 console.log("caught error")
                 console.dir(err.response.data.errors)
                 return (this.setState({error:err.response.data.errors, loading:false}))
             })
-            this.props.submitPic(data)
         }
     }
 
@@ -107,7 +111,7 @@ class NewProductForm extends React.Component{
                     <Form.Control type="file" id="image" name="image" onChange={this.onPicSelected} />
                 </Form.Group>
                 <br/> 
-                <Button primary>Add Product</Button>
+                <Button primary onClick={e => this.onSubmit(e)}>Add Product</Button>
             </Form>
         )
     }
@@ -115,7 +119,6 @@ class NewProductForm extends React.Component{
 
 NewProductForm.propType = {
     submit: PropTypes.func.isRequired,
-    submitPic: PropTypes.func.isRequired
 }
 
 export default NewProductForm
