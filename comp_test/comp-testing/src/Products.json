@@ -1,0 +1,34 @@
+{
+    "products":[
+        {
+            "ID":"0001",
+            "name": "The First Item",
+            "desc": "A description that is long enough to get trimmed",
+            "image": "http://www.petmd.com/sites/default/files/petmd-kitten-development.jpg",
+            "price": "3.5"
+        },
+        {
+            "ID":"0002",
+            "name": "the second Item",
+            "desc": "A description that is long enough to get trimmed not not the same as the last",
+            "image": "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn",
+            "price": "4.99"
+        }
+        ,
+        {
+            "ID":"0003",
+            "name": "the third Item",
+            "desc": "A description that is long enough to get trimmed not not the same as the second one",
+            "image": "http://www.petmd.com/sites/default/files/petmd-kitten-development.jpg",
+            "price": "14.99"
+        }
+        ,
+        {
+            "ID":"0004",
+            "name": "the fourth Item",
+            "desc": "A description that is long enough to get trimmed not not the same as the third one",
+            "image": "https://img.purch.com/w/660/aHR0cDovL3d3dy5saXZlc2NpZW5jZS5jb20vaW1hZ2VzL2kvMDAwLzEwNC84MTkvb3JpZ2luYWwvY3V0ZS1raXR0ZW4uanBn",
+            "price": "25"
+        }
+    ]
+}
